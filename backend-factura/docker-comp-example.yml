@@ -1,0 +1,28 @@
+services:
+  dbc:
+    image: postgres:12
+    container_name: dbc
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+    volumes:
+      - db-data:/var/lib/postgresql/data
+  docker-spring:
+    image: 'ftacurip/spring-person:0.2'
+    build:
+      dockerfile: Dockerfile
+    expose:
+      - "8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://dbc:5432/postgres
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
+    depends_on:
+      - dbc
+volumes:
+  db-data:

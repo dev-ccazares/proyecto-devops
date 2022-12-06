@@ -1,0 +1,24 @@
+services:
+  spring:
+    image: 'ftacurip/spring-factura:lastest'
+    build:
+      context: https://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@github.com/fmtacuri/prueba01-ups-factura.git#main:backend-factura
+      dockerfile: Dockerfile
+    container_name: spring
+    expose:
+      - "8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://ups.postgres.database.azure.com:5432/factura
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=tacuriU.2022
+  angular:
+    image: 'ftacurip/front-factura:lastest'
+    build:
+        context: https://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@github.com/fmtacuri/prueba01-ups-factura.git#main:front
+        dockerfile: Dockerfile
+    container_name: angular
+    ports:
+      - "80:80"
+    depends_on:
+      - spring
