@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: devccazaresproyectodevops 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: devccazaresproyectodevops
+  template:
+    metadata:
+      labels:
+        app: devccazaresproyectodevops 
+    spec:
+      containers:
+        - name: devccazaresproyectodevops 
+          image: ccautomatizacion.azurecr.io/devccazaresproyectodevops
+          ports:
+          - containerPort: 80
