@@ -12,7 +12,6 @@ services:
       - SPRING_DATASOURCE_PASSWORD=Cris123.
   angular:
     image: 'devcorpecu/front-factura:0.1'
-
     container_name: angular
     ports:
       - "80:80"
